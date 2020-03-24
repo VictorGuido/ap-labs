@@ -1,0 +1,7 @@
+
+Pacman Packages Report
+----------------------
+- Installed packages :573
+- Removed packages :60
+- Upgraded packages : 262
+- Current packages : 513
