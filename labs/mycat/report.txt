@@ -1,0 +1,5 @@
+Even with the 3862 lines file, both cat2 and cat seems to take the same amount of time, 
+same amount of resources im not that sure, but if we wanted to get real time measurements may be 
+we should try to analize a more long file.
+
+
