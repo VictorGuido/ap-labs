@@ -1,5 +1,5 @@
 //Victor Jaret Guido Alvarado
-//Logger
+//Test Logger
 
 int infof(const char *format, ...);
 

@@ -1,56 +1,51 @@
+//Victor Jaret Guido Alvarado
+//logger lib
 #include <stdarg.h>
 #include <stdio.h>
-///#include "logger.h"
 
-
-
-
-void textcolor(int attr, int fg, int bg) {	
-    char command[13];
-	sprintf(command, "%c[%d;%d;%dm", 0x1B, attr, fg +30, bg + 40);
-	printf("%s", command);
-}
-
-int printLabel(int bgColor, char* label) {
-    textcolor(0, 0, bgColor);
-	printf("%s", label);
-	textcolor(0,7,0);
-    printf(" ");
-    return 0;
-};
 
 int infof(const char *format, ...) {
-    printLabel(4,"INFO:");
-    va_list arguments;
-    va_start(arguments, format);
-    vprintf(format, arguments);
-    va_end(arguments);
+    //Set the label a background color
+    printf("%c[%d;%d;%dm", 0x1B, 0, 30, 44);
+    printf("%s", "INFO:");
+    //Set the text a font color
+    printf("%c[0;%d;%dm",0x1B, 36, 48);
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
     return 0;	
 }
 
 int warnf(const char *format, ...) {
-    printLabel(3,"WARNING:");
-    va_list arguments;
-    va_start(arguments, format);
-    vprintf(format, arguments);
-    va_end(arguments);
-    return 0;
+    printf("%c[%d;%d;%dm", 0x1B, 0, 30, 43);
+    printf("%s", "WARNING:");
+    printf("%c[0;%d;%dm",0x1B, 33, 48);	 
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+    return 1;
 }
 
 int errorf(const char *format, ...) {
-    printLabel(1,"ERROR:");
-    va_list arguments;
-    va_start(arguments, format);
-    vprintf(format, arguments);
-    va_end(arguments);
-    return 0;
+    printf("%c[%d;%d;%dm", 0x1B, 0, 30, 41);
+    printf("%s", "ERROR:");
+    printf("%c[0;%d;%dm",0x1B, 31, 48);	
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+    return 2;
 }
 
 int panicf(const char *format, ...) {
-    printLabel(5,"PANIC:");
-    va_list arguments;
-    va_start(arguments, format);
-    vprintf(format, arguments);
-    va_end(arguments);
-    return 0;
+    printf( "%c[%d;%d;%dm", 0x1B, 0, 30, 45);
+    printf("%s", "PANIC:");
+    printf("%c[0;%d;%dm",0x1B, 35, 48);
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+    return 3;
 }
