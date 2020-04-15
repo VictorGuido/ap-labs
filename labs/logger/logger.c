@@ -2,7 +2,7 @@
 //logger lib
 #include <stdarg.h>
 #include <stdio.h>
-
+#include <signal.h>
 
 int infof(const char *format, ...) {
     //Set the label a background color
@@ -47,5 +47,6 @@ int panicf(const char *format, ...) {
     va_start(args, format);
     vprintf(format, args);
     va_end(args);
+    raise (SIGABRT);
     return 3;
 }
