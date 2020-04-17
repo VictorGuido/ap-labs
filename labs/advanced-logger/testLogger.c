@@ -1,24 +1,23 @@
-#include <stdio.h>
+//Victor Jaret Guido Alvarado
+//Logger
 #include "logger.h"
 
-int main(){
+int main() {
 
-    // default logging
-    infof("INFO Message %d", 1);
-    warnf("WARN Message %d", 2);
-    errorf("ERROR Message %d", 2);
-
-    // stdout logging
+    infof("%s\n", " General information: ");
+    warnf("%s\n", " Communication between functions may cause an error");
+    errorf(" %i %s\n", 404,"Grade not found");
     initLogger("stdout");
-    infof("INFO Message %d", 1);
-    warnf("WARN Message %d", 2);
-    errorf("ERROR Message %d", 2);
+    infof("%s\n", " General information: ");
+    warnf("%s\n", " Communication between functions may cause an error");
+    errorf(" %i %s\n", 404,"Grade not found");
 
-    // syslog logging
+
     initLogger("syslog");
-    infof("INFO Message %d", 1);
-    warnf("WARN Message %d", 2);
-    errorf("ERROR Message %d", 2);
+    infof("%s\n", " General information: ");
+    warnf("%s\n", " Communication between functions may cause an error");
+    errorf(" %i %s\n", 404,"Grade not found");
+    panicf(" %s\n", "WE ARE DOOMED!");
 
     return 0;
 }
