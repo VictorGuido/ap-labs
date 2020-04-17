@@ -30,7 +30,7 @@ int infof(const char *format, ...) {
         openlog("logger", LOG_PID | LOG_CONS, LOG_SYSLOG);
         vsyslog(LOG_INFO, "INFO:", args);
         closelog();
-        printf("\nInfo has been written");
+        //printf("\nInfo has been written");
     }
     else{
         printf("%s", "INFO:");
@@ -41,7 +41,7 @@ int infof(const char *format, ...) {
         openlog("logger", LOG_PID | LOG_CONS, LOG_SYSLOG);
         vsyslog(LOG_INFO, format, args);
         closelog();
-        printf("\nInfo has been written 2");
+        //printf("\nInfo has been written 2");
     }
     else{
         vprintf(format, args);
@@ -57,7 +57,7 @@ int warnf(const char *format, ...) {
         openlog("logger", LOG_PID | LOG_CONS, LOG_SYSLOG);
         vsyslog(LOG_WARNING, "WARNING : ", args);
         closelog();
-        printf("\nwarning has been written");
+        //printf("\nwarning has been written");
     }
     else{
 	  printf("%s", "WARNING:");
@@ -68,7 +68,7 @@ int warnf(const char *format, ...) {
         openlog("logger", LOG_PID | LOG_CONS, LOG_SYSLOG);
         vsyslog(LOG_WARNING, format, args);
         closelog();
-        printf("\nwarning has been written 2");
+        //printf("\nwarning has been written 2");
     }
     else{
         vprintf(format, args);
@@ -84,7 +84,7 @@ int errorf(const char *format, ...) {
         openlog("logger", LOG_PID | LOG_CONS, LOG_SYSLOG);
         vsyslog(LOG_ERR, "ERROR :", args);
         closelog();
-        printf("\nError has been written");
+        //printf("\nError has been written");
     }
     else{
 	  printf("%s", "ERROR:");
@@ -95,7 +95,7 @@ int errorf(const char *format, ...) {
         openlog("logger", LOG_PID | LOG_CONS, LOG_SYSLOG);
         vsyslog(LOG_ERR, format, args);
         closelog();
-        printf("\nError has been written 2");
+        //printf("\nError has been written 2");
     }
     else{
         vprintf(format, args);
@@ -112,7 +112,7 @@ int panicf(const char *format, ...) {
         openlog("logger", LOG_PID | LOG_CONS, LOG_SYSLOG);
         vsyslog(LOG_EMERG, "PANIC :", args);
         closelog();
-        printf("\nPanic has been written ");
+        //printf("\nPanic has been written ");
     }
     else{
 	printf("%s", "PANIC:");
@@ -122,7 +122,7 @@ int panicf(const char *format, ...) {
         openlog("logger", LOG_PID | LOG_CONS, LOG_SYSLOG);
         vsyslog(LOG_EMERG, format, args);
         closelog();
-        printf("\nPanic has been written 2");
+        //printf("\nPanic has been written 2");
     }
     else{
         vprintf(format, args);
