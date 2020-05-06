@@ -5,22 +5,25 @@
 
 // Netcat is a simple read/write client for TCP servers.
 package main
-
 import (
+	"fmt"
 	"io"
 	"log"
 	"net"
 	"os"
 )
 
+
 //!+
 func main() {
-	conn, err := net.Dial("tcp", "localhost:8000")
+  user := os.Args[2]
+	conn, err := net.Dial("tcp", os.Args[4])
 	if err != nil {
 		log.Fatal(err)
 	}
 	done := make(chan struct{})
 	go func() {
+    fmt.Fprintf(conn,user+"\n")
 		io.Copy(os.Stdout, conn) // NOTE: ignoring errors
 		log.Println("done")
 		done <- struct{}{} // signal the main goroutine
