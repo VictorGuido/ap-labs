@@ -7,20 +7,18 @@
 //
 // This version uses a buffered channel as a counting semaphore
 // to limit the number of concurrent calls to links.Extract.
-//
-// Crawl3 adds support for depth limiting.
-//
 package main
 
 import (
 	"fmt"
 	"log"
 	"os"
+	//"strconv"
+	"flag"
 
 	"gopl.io/ch5/links"
 )
 
-//!+sema
 // tokens is a counting semaphore used to
 // enforce a limit of 20 concurrent requests.
 var tokens = make(chan struct{}, 20)
@@ -37,31 +35,44 @@ func crawl(url string) []string {
 	return list
 }
 
-//!-sema
+var seen = make(map[string]bool)
 
-//!+
-func main() {
-	worklist := make(chan []string)
-	var n int // number of pending sends to worklist
-
-	// Start with the command-line arguments.
-	n++
-	go func() { worklist <- os.Args[1:] }()
-
-	// Crawl the web concurrently.
-	seen := make(map[string]bool)
-	for ; n > 0; n-- {
-		list := <-worklist
-		for _, link := range list {
-			if !seen[link] {
-				seen[link] = true
-				n++
-				go func(link string) {
-					worklist <- crawl(link)
-				}(link)
-			}
-		}
+func crawler(depth int, url string, done chan bool) {
+	if depth <= 0 { //base case
+		done <- true
+		return
 	}
+	if visited, ok := seen[url]; visited && ok { //if visited then check another
+		done <- true
+		return
+	} else { //else mark it as visited
+		seen[url] = true
+	}
+	links := crawl(url)
+	linksDone := make(chan bool)
+	for _, link := range links { //send link and depht minus one
+		go crawler(depth-1, link, linksDone)
+		<-linksDone
+	}
+	done <- true
+}
+
+func main() {
+	if len(os.Args) <= 2 {
+		log.Print("Please follow format go run crawl3.go -depth=[number of depht] [link to crawl]")
+	}
+	link := os.Args[2];
+	depth := flag.Int("depth", 1, "")
+	flag.Parse();
+	done := make(chan bool)
+	seen[link] = false
+  //log.Print(*depth)
+  if(*depth==1){
+    	go crawler(*depth+1, link, done)
+  }else{
+    	go crawler(*depth, link, done)
+  }
+	<-done
 }
 
 //!-
